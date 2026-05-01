@@ -32,7 +32,7 @@ const getChannelStream = async (channelLogin: string, streamId: number) => {
   let channelStreams: Awaited<ReturnType<typeof sullygnome.getChannelStreams>>;
 
   do {
-    channelStreams = await sullygnome.getChannelStreams(channelId, page);
+    channelStreams = await sullygnome.getChannelStreams('365', channelId, page);
     const stream = channelStreams.data.find((s) => s.streamId === streamId);
     if (stream) return stream;
     page += 1;

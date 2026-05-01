@@ -62,6 +62,18 @@ type ChannelStreamsResponse = {
   }[];
 };
 
+export const CHANNEL_STREAMS_RANGES = [
+  '3',
+  '7',
+  '14',
+  '30',
+  '90',
+  '180',
+  '365',
+] as const;
+
+type ChannelStreamsRange = (typeof CHANNEL_STREAMS_RANGES)[number];
+
 const BASE_URL = 'https://sullygnome.com/api';
 
 export const STANDARD_SEARCH_ITEM_TYPE = {
@@ -79,13 +91,14 @@ export const getStandardSearch = async (query: string) => {
 export const CHANNEL_STREAMS_PAGE_SIZE = 100;
 
 export const getChannelStreams = async (
+  range: ChannelStreamsRange,
   channelId: number,
   page = 0,
   pageSize = CHANNEL_STREAMS_PAGE_SIZE,
 ) => {
   const pageN = page + 1;
   const start = page * pageSize;
-  const url = `${BASE_URL}/tables/channeltables/streams/365/${channelId}/%20/${pageN}/1/desc/${start}/${pageSize}`;
+  const url = `${BASE_URL}/tables/channeltables/streams/${range}/${channelId}/%20/${pageN}/1/desc/${start}/${pageSize}`;
   const res = await fetch(url);
   return res.json() as Promise<ChannelStreamsResponse>;
 };
