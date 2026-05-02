@@ -64,7 +64,8 @@ Copy and paste the following code to the console.
 let startDate, startTimestamp, videoId, channelLogin;
 if (location.hostname === 'twitchtracker.com') {
   [, channelLogin, , videoId] = location.pathname.split('/');
-  startDate = document.querySelector('meta[name="description"]').content.match(/\w+ stream on (.+) -/)[1] + 'Z';
+  const desc = document.querySelector('meta[name="description"]');
+  startDate = desc.content.match(/\w+ stream on (.+) -/)[1] + 'Z';
 }
 if (location.hostname === 'streamscharts.com') {
   [, , channelLogin, , videoId] = location.pathname.split('/');
