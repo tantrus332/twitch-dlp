@@ -22,11 +22,10 @@ jobs:
           node-version: '24'
           cache: 'pnpm'
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build EXE
-        run: pnpm run build
+      - name: Compile to EXE
+        run: |
+          mkdir dist
+          pnpm dlx pkg twitch-dlp.js --targets node24-win-x64 --output dist/twitch-dlp.exe
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
