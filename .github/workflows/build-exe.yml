@@ -25,8 +25,14 @@ jobs:
       - name: Compile to EXE
         run: |
           mkdir -Force dist
-          pnpm dlx @yao-pkg/pkg twitch-dlp.js --targets node24-win-x64 --assets "README.md" --output dist/twitch-dlp.exe
-
+        
+          echo '{"pkg": {"assets": ["README.md"]}}' > pkg-config.json
+          
+          pnpm dlx @yao-pkg/pkg twitch-dlp.js `
+            --targets node24-win-x64 `
+            --config pkg-config.json `
+            --output dist/twitch-dlp.exe
+            
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
